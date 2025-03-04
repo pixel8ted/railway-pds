@@ -1,0 +1,64 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "name": "Bluesky PDS",
+  "description": "Self-host your Bluesky Personal Data Server (PDS) and federate with the AT Protocol network",
+  "icon": "https://raw.githubusercontent.com/bluesky-social/social-app/main/src/assets/favicon-32x32.png",
+  "tags": ["bluesky", "atproto", "social", "federation"],
+  "services": [
+    {
+      "name": "pds",
+      "description": "Bluesky Personal Data Server",
+      "icon": "https://raw.githubusercontent.com/bluesky-social/social-app/main/src/assets/favicon-32x32.png",
+      "dockerfile": "./Dockerfile",
+      "healthcheck": {
+        "path": "/xrpc/_health",
+        "port": 3000
+      },
+      "volumes": [
+        {
+          "mountPath": "/pds",
+          "name": "pds-data"
+        }
+      ],
+      "envs": [
+        {
+          "name": "DOMAIN",
+          "description": "Your domain name (e.g., example.com)",
+          "required": true
+        },
+        {
+          "name": "ADMIN_PASSWORD",
+          "description": "Password for the admin account",
+          "required": true
+        },
+        {
+          "name": "PDS_ADMIN_EMAIL",
+          "description": "Email for the admin account",
+          "required": true
+        },
+        {
+          "name": "PDS_EMAIL_SMTP_URL",
+          "description": "SMTP URL for email verification (e.g., smtps://username:password@smtp.example.com/)",
+          "required": false
+        },
+        {
+          "name": "PDS_EMAIL_FROM_ADDRESS",
+          "description": "Email address to send from (e.g., admin@example.com)",
+          "required": false
+        },
+        {
+          "name": "ENABLE_AUTO_UPDATES",
+          "description": "Set to true to enable Watchtower auto-updates",
+          "default": "true",
+          "required": false
+        },
+        {
+          "name": "LOG_LEVEL",
+          "description": "Log level (info, debug, warn, error)",
+          "default": "info",
+          "required": false
+        }
+      ]
+    }
+  ]
+} 

@@ -14,6 +14,10 @@ fi
 
 # Create data directory if it doesn't exist
 mkdir -p /pds/data
+mkdir -p /pds/data/blobs
+
+# Set proper permissions for the data directory
+chmod -R 755 /pds
 
 # Create the PDS environment file
 cat > /pds/pds.env << EOF
@@ -57,6 +61,10 @@ ${DOMAIN}, *.${DOMAIN} {
   reverse_proxy localhost:3000
 }
 EOF
+
+# Print startup message
+echo "Starting Bluesky PDS for domain: ${DOMAIN}"
+echo "Data will be stored in /pds directory (ensure a Railway volume is mounted here)"
 
 # Start Caddy in the background
 caddy run --config /pds/Caddyfile --adapter caddyfile &

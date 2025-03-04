@@ -10,9 +10,6 @@ RUN apt-get update && apt-get install -y \
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-# Set up volumes for persistence
-VOLUME ["/pds"]
-
 # Expose ports
 EXPOSE 3000
 

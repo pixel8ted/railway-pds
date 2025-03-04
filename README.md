@@ -36,7 +36,20 @@ Optional variables:
 - `ENABLE_AUTO_UPDATES` - Set to `true` to enable Watchtower auto-updates (default: `true`)
 - `LOG_LEVEL` - Log level (default: `info`)
 
-### 3. Configure DNS
+### 3. Set up a Railway Volume for data persistence
+
+To ensure your PDS data persists across deployments:
+
+1. Go to your project in the Railway dashboard
+2. Click on your PDS service
+3. Navigate to the "Volumes" tab
+4. Click "Add Volume"
+5. Set the mount path to `/pds`
+6. Choose an appropriate size for your volume (recommended: at least 5GB)
+7. Click "Add"
+8. Redeploy your service for the volume to take effect
+
+### 4. Configure DNS
 
 After deployment, Railway will provide you with an IP address. You'll need to set up the following DNS records:
 
@@ -47,7 +60,7 @@ After deployment, Railway will provide you with an IP address. You'll need to se
 
 The wildcard record is required for user subdomains.
 
-### 4. Create your first account
+### 5. Create your first account
 
 Once deployed, you can create your first account by:
 
@@ -59,7 +72,7 @@ Or create an invite code with:
 pdsadmin create-invite-code
 ```
 
-### 5. Connect with the Bluesky app
+### 6. Connect with the Bluesky app
 
 1. Get the Bluesky app (Web, iOS, or Android)
 2. Enter your PDS URL (e.g., `https://example.com/`) when logging in
@@ -88,6 +101,7 @@ You can view logs in the Railway dashboard.
 - [Bluesky PDS GitHub Repository](https://github.com/bluesky-social/pds)
 - [AT Protocol Documentation](https://atproto.com/docs)
 - [AT Protocol PDS Admins Discord](https://discord.gg/ATProtocolFoundation)
+- [Railway Volumes Documentation](https://docs.railway.app/reference/volumes)
 
 ## License
 
