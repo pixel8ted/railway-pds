@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+# Using /bin/sh for broader compatibility
+
 set -e
 
 # Check for required environment variables

@@ -109,6 +109,17 @@ If you encounter deployment failures related to missing commands or tools in the
    - Run the command: `./select-dockerfile.sh`
    - Redeploy your service
 
+#### "No such file or directory" Error
+
+If you see an error like `exec container process (missing dynamic library?) '/usr/local/bin/start.sh': No such file or directory`, this indicates an issue with the container's startup script. Try these solutions:
+
+1. Switch to the Alpine-based image by setting `USE_ALPINE_IMAGE=true` in your environment variables
+2. If you're still having issues, you can try rebuilding the service by:
+   - Going to your project in the Railway dashboard
+   - Clicking on your PDS service
+   - Navigating to the "Settings" tab
+   - Clicking "Redeploy from source"
+
 #### Volume Permissions
 
 If you encounter permission issues with the volume:
