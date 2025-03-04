@@ -1,6 +1,13 @@
 #!/bin/bash
 # Helper script for managing Bluesky PDS on Railway
 
+# Check if pdsadmin is available
+if ! command -v pdsadmin &> /dev/null; then
+  echo "Error: pdsadmin command not found."
+  echo "This script requires the pdsadmin tool to be installed and available in the PATH."
+  exit 1
+fi
+
 # Function to display usage
 function show_usage {
   echo "Usage: railway-pdsadmin.sh [command]"

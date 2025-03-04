@@ -12,6 +12,15 @@ if [ -z "$ADMIN_PASSWORD" ]; then
   exit 1
 fi
 
+# Check if curl and jq are available
+if ! command -v curl &> /dev/null; then
+  echo "Warning: curl is not installed. Some functionality may be limited."
+fi
+
+if ! command -v jq &> /dev/null; then
+  echo "Warning: jq is not installed. Some functionality may be limited."
+fi
+
 # Create data directory if it doesn't exist
 mkdir -p /pds/data
 mkdir -p /pds/data/blobs

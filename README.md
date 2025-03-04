@@ -35,6 +35,7 @@ Optional variables:
 - `PDS_EMAIL_FROM_ADDRESS` - Email address to send from (e.g., `admin@example.com`)
 - `ENABLE_AUTO_UPDATES` - Set to `true` to enable Watchtower auto-updates (default: `true`)
 - `LOG_LEVEL` - Log level (default: `info`)
+- `USE_ALPINE_IMAGE` - Set to `true` to use the Alpine-based image instead of the official PDS image (default: `false`)
 
 ### 3. Set up a Railway Volume for data persistence
 
@@ -95,6 +96,25 @@ You can view logs in the Railway dashboard.
 
 - **Health check**: Visit `https://example.com/xrpc/_health` to verify your PDS is running
 - **WebSocket check**: Use a tool like `wsdump` to test WebSockets: `wsdump "wss://example.com/xrpc/com.atproto.sync.subscribeRepos?cursor=0"`
+
+### Common Issues
+
+#### Deployment Failures
+
+If you encounter deployment failures related to missing commands or tools in the base image, you have two options:
+
+1. Set the `USE_ALPINE_IMAGE` environment variable to `true` to use the Alpine-based image instead of the official PDS image
+2. Manually switch to the Alpine-based Dockerfile:
+   - Access the Railway shell for your service
+   - Run the command: `./select-dockerfile.sh`
+   - Redeploy your service
+
+#### Volume Permissions
+
+If you encounter permission issues with the volume:
+
+1. Make sure the volume is properly mounted at `/pds`
+2. You may need to adjust permissions in the Railway shell: `chmod -R 755 /pds`
 
 ## Resources
 

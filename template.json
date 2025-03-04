@@ -57,6 +57,12 @@
           "description": "Log level (info, debug, warn, error)",
           "default": "info",
           "required": false
+        },
+        {
+          "name": "USE_ALPINE_IMAGE",
+          "description": "Set to true to use the Alpine-based image instead of the official PDS image",
+          "default": "false",
+          "required": false
         }
       ]
     }

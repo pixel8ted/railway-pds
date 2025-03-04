@@ -12,15 +12,30 @@ DOMAIN=$1
 
 echo "Checking PDS status for $DOMAIN..."
 
+# Check if curl is available
+if ! command -v curl &> /dev/null; then
+  echo "Error: curl is not installed. This script requires curl to check the PDS status."
+  exit 1
+fi
+
 # Check health endpoint
 echo -n "Health check: "
 health_response=$(curl -s -o /dev/null -w "%{http_code}" "https://$DOMAIN/xrpc/_health")
 if [ "$health_response" = "200" ]; then
   echo "OK"
   
-  # Get version
-  version=$(curl -s "https://$DOMAIN/xrpc/_health" | jq -r '.version')
-  echo "PDS Version: $version"
+  # Get version if jq is available
+  if command -v jq &> /dev/null; then
+    version=$(curl -s "https://$DOMAIN/xrpc/_health" | jq -r '.version')
+    echo "PDS Version: $version"
+  else
+    echo "PDS Version: Unknown (jq not installed)"
+    # Try a simple grep as fallback
+    version=$(curl -s "https://$DOMAIN/xrpc/_health" | grep -o '"version":"[^"]*"' | cut -d'"' -f4)
+    if [ ! -z "$version" ]; then
+      echo "PDS Version: $version"
+    fi
+  fi
 else
   echo "FAILED (HTTP $health_response)"
 fi

@@ -1,0 +1,27 @@
+FROM alpine:3.18
+
+# Install Node.js, Caddy, and other required tools
+RUN apk add --no-cache \
+    nodejs \
+    npm \
+    caddy \
+    curl \
+    jq \
+    openssl \
+    bash
+
+# Create app directory
+WORKDIR /app
+
+# Install the Bluesky PDS
+RUN npm install -g @atproto/pds
+
+# Copy our startup script
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+# Expose ports
+EXPOSE 3000
+
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/start.sh"] 
